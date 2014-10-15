@@ -1,31 +1,60 @@
-Role Name
+ansible-roles_tokumx_install
 =========
 
-A brief description of the role goes here.
-
-Requirements
-------------
-
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+Installs [MongoDB](http://www.mongodb.org) and starts up a nice base configuration including base security that should be pre-set for high performance.
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+You will want to hack on the variables in defaults/main.yml to fit your liking. Things you will most likely want to change are:
 
-Dependencies
-------------
+```yaml
+# The port for mongodb server
+mongodb_port: 9005
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+# The directory prefix where the database files would be stored
+mongodb_datadir_prefix: /data/mongodb/
+
+```
+
+It's generally recommended to set this to about 80%-90% of main memory on a dedicated DB box.
+
+Install
+-------
+[See here](https://galaxy.ansible.com/intro)
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+To use this simply setup a YAML file for running:
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+```yaml
+$>cat test.yml
+---
+- hosts: mongoservers
+  roles:
+  - { role: ansible-roles_mongodb-install }
+```
+
+```yaml
+$>cat hosts.txt
+[mongoservers]
+0.0.0.0
+```
+
+and execute like:
+```bash
+$>ansible-playbook -i hosts.txt test.yml
+```
+
+Testing and Requirements
+------------------------
+This role is tested on Rackspace [onMetal High I/O](http://www.rackspace.com/cloud/servers/onmetal/) servers with Centos 7.
+
+```
+uname -a | awk '{print $3}'
+3.10.0-123.el7.x86_64
+```
 
 License
 -------
@@ -34,5 +63,6 @@ BSD
 
 Author Information
 ------------------
+[Twitter](http://www.twitter.com/kennygorman)
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+[Github](https://github.com/kgorman)
