@@ -23,8 +23,6 @@ mongodb_admin_user: yyy
 
 ```
 
-It's generally recommended to set this to about 80%-90% of main memory on a dedicated DB box.
-
 Install
 -------
 [See here](https://galaxy.ansible.com/intro)
