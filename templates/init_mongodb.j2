@@ -1,0 +1,78 @@
+#!/bin/bash
+#
+# mongodb     Startup script for the mongodb server
+#
+# chkconfig: - 64 36
+# description: MongoDB Database Server
+#
+# processname: mongodb
+#
+
+# Source function library
+. /etc/rc.d/init.d/functions
+
+if [ -f /etc/sysconfig/mongodb ]; then
+    . /etc/sysconfig/mongodb
+fi
+
+prog="mongod"
+mongod="{{ mongodb_binaries }}/bin/mongod"
+OPTIONS="{{ mongodb_config_location }}{{ mongodb_config_file_name }}"
+RETVAL=0
+
+start() {
+    echo -n $"Starting $prog: "
+    su {{ mongodb_user }} -c "$mongod -f $OPTIONS"
+    RETVAL=$?
+    echo
+    [ $RETVAL -eq 0 ] && touch /var/lock/subsys/$prog
+    return $RETVAL
+}
+
+stop() {
+    echo -n $"Stopping $prog: "
+    killproc $prog
+    RETVAL=$?
+    echo
+    [ $RETVAL -eq 0 ] && rm -f /var/lock/subsys/$prog
+    return $RETVAL
+}
+
+reload() {
+    echo -n $"Reloading $prog: "
+    killproc $prog -HUP
+    RETVAL=$?
+    echo
+    return $RETVAL
+}
+
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    restart)
+        stop
+        start
+        ;;
+    condrestart)
+        if [ -f /var/lock/subsys/$prog ]; then
+            stop
+            start
+        fi
+        ;;
+    reload)
+        reload
+        ;;
+    status)
+        status {{ mongodb_binaries }}/bin/mongod
+        RETVAL=$?
+        ;;
+    *)
+        echo $"Usage: $0 {start|stop|restart|condrestart|reload|status}"
+        RETVAL=1
+esac
+
+exit $RETVAL

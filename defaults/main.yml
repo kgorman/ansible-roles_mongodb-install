@@ -1,0 +1,20 @@
+---
+# defaults file for ansible-roles_mongodb-install
+
+# defaults file for ansible-roles_tokumx-install
+
+# The port for mongodb server
+mongodb_port: 9005
+
+# The directory prefix where the database files would be stored
+mongodb_datadir_prefix: /data/mongodb/
+
+# The password for admin user
+mongodb_admin_pass: dba
+
+# The password for admin user
+mongodb_admin_user: dba
+
+# Keyfile key. Not needed with simple setups, but anytime there is Auth+RS sharding it's needed
+# see: http://docs.mongodb.org/manual/tutorial/generate-key-file/
+mongodb_keyfile_key: 25cf454c8a1437ad650fd0c7adb9a5e3

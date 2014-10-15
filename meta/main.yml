@@ -1,0 +1,21 @@
+---
+---
+galaxy_info:
+  author: Kenny Gorman
+  description: Install and setup MongoDB database
+  company: Rackspace US Inc.
+  license: BSD
+  min_ansible_version: 1.2
+  platforms:
+  - name: EL
+    versions:
+    - all
+  - name: GenericUNIX
+    versions:
+    - all
+  categories:
+  - system
+  - cloud:rax
+  - database
+  - database:nosql
+  dependencies: []

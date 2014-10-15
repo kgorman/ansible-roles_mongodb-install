@@ -1,0 +1,25 @@
+---
+# vars file for ansible-roles_mongodb-install
+
+# vars file for ansible-roles_tokumx-install
+
+# The OS user/group
+mongodb_user: mongodb
+mongodb_group: mongodb
+
+# MongoDB config files location
+mongodb_config_location: /etc/mongodb/
+
+# MongoDB config file name
+mongodb_config_file_name: mongodb{{ mongodb_port }}.conf
+
+# MongoDB keyfile name
+mongodb_keyfile_name: mongodb_{{ mongodb_port}}.keyfile
+
+# MongoDB binaries
+mongodb_symlink: /opt/mongodb
+mongodb_binaries: /opt/mongodb/
+
+mongodb_binaries_file: mongodb-linux-x86_64-2.6.5.tgz
+mongodb_binaries_dir: mongodb-linux-x86_64-2.6.5
+mongodb_binaries_url: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-2.6.5.tgz
