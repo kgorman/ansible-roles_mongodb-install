@@ -1,4 +1,4 @@
-ansible-roles_tokumx_install
+ansible-roles_mongodb_install
 =========
 
 Installs [MongoDB](http://www.mongodb.org) and starts up a nice base configuration including base security that should be pre-set for high performance.
