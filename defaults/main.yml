@@ -1,8 +1,6 @@
 ---
 # defaults file for ansible-roles_mongodb-install
 
-# defaults file for ansible-roles_tokumx-install
-
 # The port for mongodb server
 mongodb_port: 9005
 
