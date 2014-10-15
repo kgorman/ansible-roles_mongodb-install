@@ -1,8 +1,6 @@
 ---
 # vars file for ansible-roles_mongodb-install
 
-# vars file for ansible-roles_tokumx-install
-
 # The OS user/group
 mongodb_user: mongodb
 mongodb_group: mongodb

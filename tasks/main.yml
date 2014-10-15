@@ -1,9 +1,6 @@
 ---
 # tasks file for ansible-roles_mongodb-install
 
----
-# tasks file for ansible-roles_tokumx-install
-
 # ensure base users/groups, and software
 - group: name={{ mongodb_group }} state=present
 - user: name={{ mongodb_user }} comment="mongodb user" uid=1040 group={{ mongodb_group }}
