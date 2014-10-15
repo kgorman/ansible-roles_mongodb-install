@@ -1,7 +1,7 @@
 ---
 galaxy_info:
   author: Kenny Gorman
-  description: Install and setup MongoDB database with security enabled.
+  description: Install and setup MongoDB 2.6.4 database with security enabled. 
   company: Rackspace US Inc.
   license: BSD
   min_ansible_version: 1.2

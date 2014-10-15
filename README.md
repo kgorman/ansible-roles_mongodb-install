@@ -15,6 +15,12 @@ mongodb_port: 9005
 # The directory prefix where the database files would be stored
 mongodb_datadir_prefix: /data/mongodb/
 
+# The password for admin user
+mongodb_admin_pass: xxx
+
+# The password for admin user
+mongodb_admin_user: yyy
+
 ```
 
 It's generally recommended to set this to about 80%-90% of main memory on a dedicated DB box.
