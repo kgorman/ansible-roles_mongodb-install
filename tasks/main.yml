@@ -17,6 +17,10 @@
 # system settings, specific to DB
 - shell: echo never > /sys/kernel/mm/transparent_hugepage/enabled
 
+# readahead
+
+# numactl stuff
+
 # config and init files, directories
 - name: Create the mongodb startup file
   template: src=init_mongodb.j2 dest=/etc/init.d/mongodb mode=0655 owner={{ mongodb_user }} group={{ mongodb_group }}
