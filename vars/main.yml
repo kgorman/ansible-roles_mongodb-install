@@ -18,6 +18,6 @@ mongodb_keyfile_name: mongodb_{{ mongodb_port}}.keyfile
 mongodb_symlink: /opt/mongodb
 mongodb_binaries: /opt/mongodb/
 
-mongodb_binaries_file: mongodb-linux-x86_64-2.6.5.tgz
-mongodb_binaries_dir: mongodb-linux-x86_64-2.6.5
-mongodb_binaries_url: http://fastdl.mongodb.org/linux/mongodb-linux-x86_64-2.6.5.tgz
+mongodb_binaries_file: mongodb-linux-x86_64-{{ mongodb_version }}.tgz
+mongodb_binaries_dir: mongodb-linux-x86_64-{{ mongodb_version }}
+mongodb_binaries_url: http://fastdl.mongodb.org/linux/mongodb-linux-x86_64-{{ mongodb_version }}.tgz

@@ -5,6 +5,7 @@
 - group: name={{ mongodb_group }} state=present
 - user: name={{ mongodb_user }} comment="mongodb user" uid=1040 group={{ mongodb_group }}
 - yum: name=python-pip state=latest
+- yum: name=numactl state=latest
 - pip: name=pymongo
 
 # get the binaries
@@ -41,4 +42,8 @@
 - service: name=mongodb state=started
 
 # create an initial DBA user, if auth is enabled we are now secured.
-- mongodb_user: database=admin name={{ mongodb_admin_user }} password={{ mongodb_admin_pass }} state=present login_port={{ mongodb_port }}
+- mongodb_user: database=admin name={{ mongodb_admin_user }} password={{ mongodb_admin_pass }} state=present login_port={{ mongodb_port }} roles="root"
+
+# open the firewall (centos 7 only)
+- command: firewall-cmd --permanent --add-port={{ mongodb_port }}/tcp
+- command: firewall-cmd --reload
