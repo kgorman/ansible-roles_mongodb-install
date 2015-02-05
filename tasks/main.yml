@@ -1,12 +1,15 @@
 ---
 # tasks file for ansible-roles_mongodb-install
 
+# cleanup
+- command: rm -rf /mongodb
+
 # ensure base users/groups, and software
 - group: name={{ mongodb_group }} state=present
 - user: name={{ mongodb_user }} comment="mongodb user" uid=1040 group={{ mongodb_group }}
 - yum: name=python-pip state=latest
 - yum: name=numactl state=latest
-- pip: name=pymongo
+- pip: name=pymongo state=latest
 
 # get the binaries
 - name: download MongoDB/TokuMX
@@ -17,6 +20,7 @@
 
 # system settings, specific to DB
 - shell: echo never > /sys/kernel/mm/transparent_hugepage/enabled
+- shell: echo never > /sys/kernel/mm/transparent_hugepage/defrag
 
 # readahead
 
@@ -47,3 +51,7 @@
 # open the firewall (centos 7 only)
 - command: firewall-cmd --permanent --add-port={{ mongodb_port }}/tcp
 - command: firewall-cmd --reload
+
+# set limits
+- name: set up limits.conf
+  template: src=limits_conf.j2 dest=/etc/security/limits.conf mode=0600
