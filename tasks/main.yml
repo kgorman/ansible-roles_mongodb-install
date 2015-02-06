@@ -7,6 +7,7 @@
 # ensure base users/groups, and software
 - group: name={{ mongodb_group }} state=present
 - user: name={{ mongodb_user }} comment="mongodb user" uid=1040 group={{ mongodb_group }}
+- yum: name=epel-release state=latest
 - yum: name=python-pip state=latest
 - yum: name=numactl state=latest
 - pip: name=pymongo state=latest
@@ -22,13 +23,11 @@
 - shell: echo never > /sys/kernel/mm/transparent_hugepage/enabled
 - shell: echo never > /sys/kernel/mm/transparent_hugepage/defrag
 
-# readahead
-
-# numactl stuff
-
 # config and init files, directories
 - name: Create the mongodb startup file
   template: src=init_mongodb.j2 dest=/etc/init.d/mongodb mode=0655 owner={{ mongodb_user }} group={{ mongodb_group }}
+
+- shell: echo 0 > /proc/sys/vm/zone_reclaim_mode
 
 - name: Create the data directory
   file: path={{ mongodb_datadir_prefix }} state=directory owner={{ mongodb_user }} group={{ mongodb_group }}
@@ -48,9 +47,20 @@
 # create an initial DBA user, if auth is enabled we are now secured.
 - mongodb_user: database=admin name={{ mongodb_admin_user }} password={{ mongodb_admin_pass }} state=present login_port={{ mongodb_port }} roles="root"
 
-# open the firewall (centos 7 only)
-- command: firewall-cmd --permanent --add-port={{ mongodb_port }}/tcp
-- command: firewall-cmd --reload
+# open firewall for MongoDB connections
+- name: open firewall CentOS7+
+  command: firewall-cmd --permanent --add-port={{ mongodb_port }}/tcp
+  when: ansible_distribution == 'CentOS' and ansible_distribution_major_version|int >= 7
+- name: reload firewall CentOS 7+
+  command: firewall-cmd --reload
+  when: ansible_distribution == 'CentOS' and ansible_distribution_major_version|int >= 7
+
+- name: open firewall CentOS < 7
+  command: /sbin/iptables -I RH-Firewall-1-INPUT 1 -p tcp --dport {{ mongodb_port }} -j ACCEPT
+  when: ansible_distribution == 'CentOS' and ansible_distribution_major_version|int < 7
+- name: reload firewall CentOS < 7
+  command: /sbin/service iptables save
+  when: ansible_distribution == 'CentOS' and ansible_distribution_major_version|int < 7
 
 # set limits
 - name: set up limits.conf
