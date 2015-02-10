@@ -6,4 +6,6 @@ rest=True
 auth=True
 keyFile={{ mongodb_config_location }}{{ mongodb_keyfile_name }}
 smallfiles=True
-# storageEngine={{ mongodb_storage_engine }}
+{% if mongodb_version | version_compare('3.0', '>=') %}
+storageEngine={{ mongodb_storage_engine }}
+{% endif %}
