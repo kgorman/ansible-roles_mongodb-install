@@ -16,6 +16,7 @@ mongodb_keyfile_key: 25cf454c8a1437ad650fd0c7adb9a5e3
 
 # storage engine to use (2.8+)
 mongodb_storage_engine: mmapv1
+wiredTigerCacheSizeGB: 2
 
 mongodb_admin_user: dba
 mongodb_admin_pass: dba
