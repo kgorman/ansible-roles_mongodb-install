@@ -19,4 +19,4 @@ mongodb_storage_engine: mmapv1
 wiredTigerCacheSizeGB: 2
 
 mongodb_admin_user: dba
-mongodb_admin_pass: dba
+mongodb_admin_pass: f7e157e3ec0d049a4a674fe97342eb81
